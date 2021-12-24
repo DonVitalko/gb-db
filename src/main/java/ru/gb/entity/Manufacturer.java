@@ -11,7 +11,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 @Entity
 @Table(name = "MANUFACTURER")
 @NamedQueries({
@@ -22,14 +21,14 @@ import java.util.Set;
 })
 public class Manufacturer {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
 
     @Column(name = "NAME")
     private String name;
 
-    @Transient
+    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Product> products;
 
     public boolean addProduct(Product product) {
@@ -37,5 +36,14 @@ public class Manufacturer {
             products = new HashSet<>();
         }
         return products.add(product);
+    }
+
+    @Override
+    public String toString() {
+        return "Manufacturer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", products=" + products +
+                '}';
     }
 }
