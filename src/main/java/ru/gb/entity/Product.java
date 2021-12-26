@@ -14,6 +14,9 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "product")
+@NamedQueries({
+        @NamedQuery(name = "Product.findById",query = "select p from Product p where p.id = :id")
+})
 public class Product {
     @Id@GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
