@@ -3,11 +3,13 @@ package ru.gb.dao;
 import ru.gb.entity.Manufacturer;
 import ru.gb.entity.Product;
 
+import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 
 public interface ProductDao {
-    Iterable<Product> findAll();
-    Product findById();
+    List<Product> findAll();
+    Product findById(Long id);
     Product save(Product product);
-    void deleteAll(Collection<Product> products);
+    BigDecimal totalCost(List<Product> productList);
 }
